@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 interface ITracksProps {
     className?: string;
     tracks: ITracksInfo[];
-    fetchTracksReturn?: (newData: ITracksInfo[]) => void
+    fetchTracksReturn: (newData: ITracksInfo[]) => void
 }
 const SongsList: React.FC<ITracksProps> = ({
     className,
@@ -45,12 +45,14 @@ const SongsList: React.FC<ITracksProps> = ({
     return (
         <div className={twMerge('w-full overflow-x-hidden overflow-y-auto first-child: border-t border-solid border-gray-300', className)}>
             {tracks && tracks.map((item, index) => (
-                <Song 
+                <Song
                     key={index}  // Sử dụng chỉ số index làm key
-                    track={item} 
-                    fetchTracksReturn={fetchTracksReturn} 
+                    track={item}
+                    fetchTracksReturn={fetchTracksReturn}
                 />
             ))}
+            {/* <Song track={trackTest} fetchTracksReturn={fetchTracksReturn} /> */}
+            {/* <Song track={trackTest} fetchTracksReturn={fetchTracksReturn} /> */}
         </div>
     )
 }

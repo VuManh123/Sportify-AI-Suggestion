@@ -7,7 +7,7 @@ dotenv.config();
 // import connection from './configs/connectDB.js';
 
 const app = express();
-const port = process.env.PORT || 5500;
+const port = process.env.PORT || 5000;
 console.log('check:', port);
 
 app.use(express.urlencoded({ extended: true }));
