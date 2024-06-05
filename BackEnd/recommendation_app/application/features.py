@@ -37,7 +37,7 @@ def extract(track_id):
         'liveness': track_features['liveness'],
         'valence': track_features['valence'],
         'tempo': track_features['tempo'],
-        'duration_ms': track_features['duration_ms'],
+        'duration_ms': track_feaotures['duration_ms'],
         'time_signature': track_features['time_signature']
     }
 

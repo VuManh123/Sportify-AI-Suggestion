@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import ChatInput from './ChatInput';
 import ChatDisplay from './ChatDisplay';
 import { useState } from 'react';
+import axios from 'axios';
+
 
 const BoxChat = (props: any) => {
     let { fetchData } = props
@@ -11,12 +13,13 @@ const BoxChat = (props: any) => {
         { message: 'xin chào' }
     ]);
 
-    const handleAddMessage = (message: any) => {
+    const handleAddMessage = async (message: any) => {
         const data = {
             message: message
-        }
+        };
+        
         setMessages([...messages, data]);
-    }
+    };
 
 
 

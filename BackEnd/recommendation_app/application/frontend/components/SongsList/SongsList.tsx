@@ -57,4 +57,4 @@ const SongsList: React.FC<ITracksProps> = ({
     )
 }
 
-export default SongsList
+export default SongsList;

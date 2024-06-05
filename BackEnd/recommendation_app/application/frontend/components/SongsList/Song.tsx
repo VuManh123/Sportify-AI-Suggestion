@@ -28,13 +28,13 @@ const Song: React.FC<ISongProps> = ({
 
     const handleClickSong = (id: string) => {
         console.log('Song check id: ', id);
-        setData(id);
-        const url = `${URL}/api/v1/track/${data}`;
-        axios.get(url)
+        // setData(id);
+        // Gửi ID bài hát đến /recommend
+        axios.post('http://localhost:5500/recommend', { track_id: id })
             .then(function (response) {
                 console.log('Success:', response.data);
                 // Xử lý dữ liệu trả về ở đây
-                { fetchTracksReturn && fetchTracksReturn(response.data) }
+                fetchTracksReturn(response.data);
             })
             .catch(function (error) {
                 console.error('Error:', error);
@@ -46,12 +46,12 @@ const Song: React.FC<ISongProps> = ({
                 className={twMerge('w-full flex  p-3 border-b border-solid border-gray-300 align-middle', className)}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-            // onClick={() => handleClickSong(track.trackId)}
+                onClick={() => handleClickSong(track.trackId)}
             >
                 <img src={track.albumCover} alt="" className='w-12' />
                 <div className='flex flex-col ml-2 '>
                     <span className='text-base font-semibold w-52 truncate'>{track.trackName}</span>
-                    <span className='text-sm text-neutral-400'>{track.artists.join(', ')}</span>
+                    <span className='text-sm text-neutral-400'>{track.artists}</span>
                 </div>
             </div>
             {showDetail &&
@@ -64,11 +64,10 @@ const Song: React.FC<ISongProps> = ({
                     <span>speechiness: {track.speechiness}</span>
                     <span>acousticness: {track.acousticness}</span>
                     <span>instrumentalness: {track.instrumentalness}</span>
-                    {/* <span>liveness: {track.liveness}</span>
+                    <span>liveness: {track.liveness}</span>
                     <span>valence: {track.valence}</span>
                     <span>tempo: {track.tempo}</span>
-                    <span>timeSignature: {track.timeSignature}</span>
-                    <span>trackGenres: {track.trackGenres.join(', ')}</span> */}
+                    <span>trackGenres: {track.trackGenres}</span> 
                 </div>
             }
         </Link >
