@@ -24,7 +24,7 @@ app.post('/input', async (req, res) => {
       .pipe(csv())
       .on('data', (row) => {
           // Kiểm tra nếu track_name hoặc artist_name chứa từ khóa tìm kiếm
-          if (row.track_name.includes(keyword) || row.artist_name.includes(keyword)) {
+          if (row.track_name.includes(keyword) ) { //|| row.artist_name.includes(keyword)
               // Kiểm tra nếu chưa đạt tới giới hạn 20 kết quả
               if (count < 30) {
                   results.push({
@@ -54,7 +54,7 @@ app.post('/input', async (req, res) => {
           }
       })
       .on('end', () => {
-          // console.log('Search results:', results);
+          console.log('Search results:', results);
           // Gửi kết quả tìm kiếm về client
           if (count < 30) {
             res.json(results);
@@ -72,16 +72,17 @@ app.post('/input', async (req, res) => {
     
     try {
         // Gửi yêu cầu đến endpoint recommend của máy chủ khác
-        const recommendResponse = await axios.post("http://localhost:5000/recommend", {
+        const recommendResponse = await axios.post("http://127.0.0.1:5000/recommend", {
             track_id: track_id,
             number_of_recs: 30 // Số lượng bài hát được đề xuất
         });
+        // Lấy dữ liệu từ kết quả trả về
+        const recommendedSongs = recommendResponse.data;
+        console.log('Recommended songs:', recommendedSongs);
 
-        // Lấy danh sách các bài hát được đề xuất từ phản hồi của máy chủ
-        const recommendedSongs = recommendResponse.songs;
-        console.log(recommendedSongs);
+        // Trả về dữ liệu cho client
+        res.json(recommendedSongs.songs);
 
-        res.json(recommendedSongs);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });

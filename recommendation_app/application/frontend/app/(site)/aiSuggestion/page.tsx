@@ -23,14 +23,41 @@ export default function AiSuggestion() {
         })
         .catch(error => console.error('Error:', error));
     };
+    const fetchRecommend = (id: string) => {
+        fetch(`http://localhost:5500/recommend`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
+                setTracksReturn(data);
+            } else {
+                console.error("Dữ liệu không hợp lệ:", data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    };
 
     const fetchData = (tracks: ITracksInfo[]) => {
         setTracks(tracks);
     }
 
     const fetchTracksReturn = (tracks: ITracksInfo[]) => {
-        setTracksReturn(tracks);
-    }
+        if (Array.isArray(tracks)) {
+            setTracksReturn(tracks);
+        } else {
+            console.error("Dữ liệu không hợp lệ:", tracks);
+        }
+    };
+
+    useEffect(() => {
+        // Gọi API để lấy dữ liệu ban đầu nếu cần
+        fetchRecommend('initial_id'); // Thay thế 'initial_id' bằng ID phù hợp
+    }, []);
 
     return (
         <div className="flex h-full flex-col">

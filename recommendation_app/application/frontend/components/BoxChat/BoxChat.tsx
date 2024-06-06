@@ -6,6 +6,10 @@ import ChatDisplay from './ChatDisplay';
 import { useState } from 'react';
 import axios from 'axios';
 
+interface IMessage {
+    message: string;
+    isUser: boolean;
+}
 
 const BoxChat = (props: any) => {
     let { fetchData } = props
@@ -13,12 +17,18 @@ const BoxChat = (props: any) => {
         { message: 'xin chào' }
     ]);
 
-    const handleAddMessage = async (message: any) => {
-        const data = {
-            message: message
-        };
+    // const handleAddMessage = async (message: any) => {
+    //     const data = {
+    //         message: message
+    //     };
         
-        setMessages([...messages, data]);
+    //     setMessages([...messages, data]);
+    // };
+    const handleAddMessage = async (message: any) => {
+        const userMessage = { message: message, isUser: true };
+        const aiMessage = { message: `Đây là 1 số bài hát liên quan đến "${message}"`, isUser: false };
+
+        setMessages([...messages, userMessage, aiMessage]);
     };
 
 

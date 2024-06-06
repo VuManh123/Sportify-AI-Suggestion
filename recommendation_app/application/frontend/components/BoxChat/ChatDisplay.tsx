@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Message from '../Message/Message';
 import { twMerge } from 'tailwind-merge';
+
 interface IMessageProps {
     className?: string;
     messages: IMessage[]

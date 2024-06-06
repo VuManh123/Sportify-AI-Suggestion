@@ -22,7 +22,7 @@ const ChatInput = (props: any) => {
 
     console.log('Sending message:', message);
     const url = `${URL}/input`; // Endpoint mới
-
+    handleAddMessage(message);
     // Gửi yêu cầu POST đến server bằng axios
     axios
       .post(url, { message })

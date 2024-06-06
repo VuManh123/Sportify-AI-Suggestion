@@ -7,7 +7,7 @@ interface ITracksInfo {
     energy: string,
     key: string,
     loudness: string,
-    mode: string,
+    mode: string, 
     speechiness: string,
     acousticness: string,
     instrumentalness: string,
